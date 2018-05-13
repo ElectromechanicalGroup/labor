@@ -2,25 +2,60 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-	<head>
-		<title>dwdj_3_updateBase</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link href="<%=request.getContextPath()%>/styles/css/common.css"
-			rel="stylesheet" type="text/css">
-		<script src="<%=request.getContextPath()%>/js/commonjs.js"></script>
-		<script type="text/javascript"
-			src="<%=request.getContextPath()%>/js/jquery-1.11.1.min.js"></script>
-		<script type="text/javascript">
+<head>
+<title>dwdj_3_updateBase</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<%=request.getContextPath()%>/styles/css/common.css"
+	rel="stylesheet" type="text/css">
+<script src="<%=request.getContextPath()%>/js/commonjs.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
 	$(function(){
+		$("#dwxz").load("../../../dwdj/getOrgType")
+		$("#dwjjlx").load("../../../dwdj/getRegType")
+		$("#dwhy").load("../../../dwdj/getIndustry")
+		$("#dwszs").load("../../../dwdj/getProvince")
+		$("#dwszs").change(function(){
+			$("#dwszq").load("../../../dwdj/getCity",{code:"dwszs",selectedId:$("#dwszs").val(),region:"city"})
+			$("#dwszq").change()
+		})
+		$("#dwszq").change(function(){
+			$("#dwszj").load("../../../dwdj/getVillage",{code:"dwszq",selectedId:$("#dwszq").val(),region:"village"})
+		})
+		
+		
 	$("#dwfrm").blur(function(){
 	
-		
-          
-			
 			var frm=$("#dwfrm").val();
-	
-			$.getJSON("dwdjInfo.do",{frm:frm,code:"blur"},function(data){
+			
+			
+			$.getJSON("../../../dwdj/getBioById",{id:frm},function(data){
 				if(data!=null){
+					if(confirm("用户已存在是否显示该用户")){
+						$("#dwbh").val(data.bioId);
+						$("#dwqc").val(data.bioName);
+						$("#dwjc").val(data.bioShortname);
+						$("#dwxz").val(data.bioOrgtype);
+						$("#dwjjlx").val(data.cdgRegtype);
+						$("#dwhy").val(data.bioIndustry);
+						$("#yzbm").val(data.bioBuaPostcode);
+						$("#czjh").val(data.bioConFax);
+						$("#email").val(data.bioConMail);
+						var code=data.bioRgaRegioncode;
+						$("#dwszs").load("../../../dwdj/getRegions",{region:"province",code:code})
+						$("#dwszq").load("../../../dwdj/getRegions",{region:"city",code:code})
+						$("#dwszj").load("../../../dwdj/getRegions",{region:"village",code:code})
+						$("#lxdz").val(data.bioBuaAddress);
+						
+					}
+				}
+			});
+			
+			
+	});
+				
+				/* if(data!=null){
 					
 					if(confirm("用户已存在是否显示该用户")){
 				$("#dwbh").val(data.bio_id);
@@ -51,22 +86,10 @@
 			
 			alert("该单位首次登记请仔细输入信息");
 		}
-		}		
-				
-
-
-
-
-
-
-
-				
+		}		 */
 				
 			
-			});
 			
-			
-		});
 		
 		$("#bc").click(function(){
 	var reg=/[a-zA-Z_0-9]$/
@@ -151,7 +174,7 @@
 </script>
 
 
-		<script type="text/javascript">
+<script type="text/javascript">
 $(function(){
 	
 //单位性质
@@ -197,7 +220,7 @@ $(function(){
 
 
 </script>
-		<script>
+<script>
 	var xmlHttp = false;
 	function initCity(){
 		var province = form1.dwszs.options[form1.dwszs.selectedIndex].value;
@@ -247,198 +270,144 @@ $(function(){
 		form1.dwjc.value = form1.dwqc.value;
 	}
 </script>
-	</head>
-	<body>
-		<form name="form1" action="dwdjInfo.do" method="post">
-			<input type="hidden" name="dwdj" value="dwdj2" />
-			<input type="hidden" name="dwbh" id="dwbh" />
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td>
-						<table width="98%" border="0" align="center" cellpadding="0"
-							cellspacing="0">
-							<tr>
-								<td height="20" valign="bottom">
-									<img
-										src="<%=request.getContextPath()%>/styles/images/right/now.gif"
-										width="11" height="12">
-									当前位置：职业介绍 &gt; 单位登记 &gt; 新增单位基本信息
-								</td>
-							</tr>
-							<tr>
-								<td valign="bottom"
-									background="<%=request.getContextPath()%>/styles/images/right/dsline.gif"
-									height="8">
-									<img
-										src="<%=request.getContextPath()%>/styles/images/index/spacer.gif">
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td align="center" valign="top">
-						<table width="98%" border="0" cellpadding="0" cellspacing="0"
-							class="title">
-							<tr>
-								<td width="30">
-									<table border="0" cellspacing="0" cellpadding="0">
-										<tr>
-											<td>
-												<img src="<%=request.getContextPath()%>/styles/css/bb_d.gif">
-											</td>
-										</tr>
-									</table>
-								</td>
-								<td valign="bottom">
-									基本信息&nbsp;&nbsp;&nbsp;[提示：单位登记有效期为12天,使用修改功能可以延长有效期12天]
-								</td>
-							</tr>
-						</table>
+</head>
+<body>
+
+
+
+	<form name="form1" action="../../../dwdj/addBio1" method="post">
+		<input type="hidden" name="dwdj" value="dwdj2" /> <input
+			type="hidden" name="dwbh" id="dwbh" />
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+					<table width="98%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
 						<tr>
-							<td align="center" valign="top">
-								<table width="98%" border="0" cellspacing="0" cellpadding="0"
-									style="display: block">
-
+							<td height="20" valign="bottom"><img
+								src="<%=request.getContextPath()%>/styles/images/right/now.gif"
+								width="11" height="12"> 当前位置：职业介绍 &gt; 单位登记 &gt; 新增单位基本信息
+							</td>
+						</tr>
+						<tr>
+							<td valign="bottom"
+								background="<%=request.getContextPath()%>/styles/images/right/dsline.gif"
+								height="8"><img
+								src="<%=request.getContextPath()%>/styles/images/index/spacer.gif">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top">
+					<table width="98%" border="0" cellpadding="0" cellspacing="0"
+						class="title">
+						<tr>
+							<td width="30">
+								<table border="0" cellspacing="0" cellpadding="0">
 									<tr>
-										<td valign="top">
-											<table width="100%" border="0" cellspacing="1"
-												cellpadding="0">
-												<tr class="line2">
-													<td width="13%" align="right">
-														<span class="redtxt">*</span>单位法人码
-													</td>
-													<td width="18%">
-														<input name="dwfrm" id="dwfrm" style="WIDTH: 100%"
-															maxlength="32">
-													</td>
-													<td width="13%" align="right">
-														<span class="redtxt">*</span>单位全称
-													</td>
-													<td width="20%">
-														<INPUT name="dwqc" id="dwqc" style="WIDTH: 100%"
-															maxlength="64" value="" onkeyup=
-	copyValue();;
->
-													</td>
-													<td width="14%" align="right">
-														单位简称
-													</td>
-													<td width="20%">
-														<INPUT name="dwjc" id="dwjc" style="WIDTH: 100%"
-															maxlength="32" value="">
-													</td>
-												</tr>
-												<tr class="line1">
-													<td align="right">
-														<span class="redtxt">*</span>单位性质
-													</td>
-													<td width="18%">
-														<select id="dwxz" name="dwxz" style="WIDTH: 100%;">
-
-														</select>
-													</td>
-													<td align="right">
-														<span class="redtxt">*</span>经济类型
-													</td>
-													<td>
-														<select id="dwjjlx" name="dwjjlx" style="WIDTH: 100%">
-
-
-														</select>
-													</td>
-													<td align="right">
-														<span class="redtxt">*</span>单位行业
-													</td>
-													<td>
-														<select id="dwhy" name="dwhy" style="WIDTH: 100%">
-
-
-														</select>
-													</td>
-												</tr>
-												<tr class="line2">
-
-													<td align="right">
-														邮政编码
-													</td>
-													<td>
-														<INPUT name="yzbm" id="yzbm" style="WIDTH: 100%"
-															maxlength="32">
-													</td>
-													<td align="right">
-														传真机号
-													</td>
-													<td>
-														<input name="czjh" id="czjh" style="WIDTH: 100%"
-															maxlength="32" value="">
-													</td>
-													<td align="right">
-														Email
-													</td>
-													<td>
-														<INPUT name="email" id="email" style="WIDTH: 100%"
-															maxlength="64" value="">
-													</td>
-												</tr>
-												<tr class="line1">
-													<td align="right">
-														<span class="redtxt">*</span>注册省(市)
-													</td>
-													<td>
-														<select id="dwszs" name="dwszs" style="WIDTH: 100%"
-															onchange="initCity()">
-															${Regioncode }
-
-														</select>
-													</td>
-													<td align="right">
-														市(区\县)
-													</td>
-													<td id="sqx">
-														<select id="dwszq" name="dwszq" style="WIDTH: 100%"
-															onchange="initVillage()">
-														</select>
-													</td>
-													<td align="right">
-														街(镇\乡)
-													</td>
-													<td id="jzx">
-														<select id="dwszj" name="dwszj" style="WIDTH: 100%">
-														</select>
-													</td>
-												</tr>
-												<tr class="line2">
-													<td align="right">
-														<span class="redtxt">*</span>经营地址
-													</td>
-													<td colspan="5">
-														<INPUT name="lxdz" id="lxdz" style="WIDTH: 100%"
-															maxlength="64" value="">
-													</td>
-												</tr>
-
-											</table>
+										<td><img
+											src="<%=request.getContextPath()%>/styles/css/bb_d.gif">
 										</td>
 									</tr>
 								</table>
-								<br>
-								<TABLE width="100%" border=0 cellPadding=0 cellSpacing=1
-									class="tablebody" align="center">
-									<TR align="center">
-										<TD class="line2">
-											<input id="bc" type="button" class="BUTTONs3" value="保 存">
-											
-											&nbsp;&nbsp;
-											<INPUT name="fh" type="button"
-												onclick="window.location.href='<%=request.getContextPath()%>/service/zj/dwzp/dwdj_1_querybase.jsp';"
-												class="BUTTONs3" value="返 回">
-										</TD>
-									</TR>
-								</TABLE>
+							</td>
+							<td valign="bottom">
+								基本信息&nbsp;&nbsp;&nbsp;[提示：单位登记有效期为12天,使用修改功能可以延长有效期12天]</td>
+						</tr>
+					</table>
+			<tr>
+				<td align="center" valign="top">
+					<table width="98%" border="0" cellspacing="0" cellpadding="0"
+						style="display: block">
+
+						<tr>
+							<td valign="top">
+								<table width="100%" border="0" cellspacing="1" cellpadding="0">
+									<tr class="line2">
+										<td width="13%" align="right"><span class="redtxt">*</span>单位法人码
+										</td>
+										<td width="18%"><input name="bioNo" id="dwfrm"
+											style="WIDTH: 100%" maxlength="32"></td>
+										<td width="13%" align="right"><span class="redtxt">*</span>单位全称
+										</td>
+										<td width="20%"><INPUT name="bioName" id="dwqc"
+											style="WIDTH: 100%" maxlength="64" value=""
+											onkeyup=copyValue();;></td>
+										<td width="14%" align="right">单位简称</td>
+										<td width="20%"><INPUT name="bioShortname" id="dwjc"
+											style="WIDTH: 100%" maxlength="32" value=""></td>
+									</tr>
+									<tr class="line1">
+										<td align="right"><span class="redtxt">*</span>单位性质</td>
+										<td width="18%"><select id="dwxz" name="bioOrgtype"
+											style="WIDTH: 100%;">
+
+										</select></td>
+										<td align="right"><span class="redtxt">*</span>经济类型</td>
+										<td><select id="dwjjlx" name="cdgRegtype"
+											style="WIDTH: 100%">
+
+
+										</select></td>
+										<td align="right"><span class="redtxt">*</span>单位行业</td>
+										<td><select id="dwhy" name="bioIndustry"
+											style="WIDTH: 100%">
+
+
+										</select></td>
+									</tr>
+									<tr class="line2">
+
+										<td align="right">邮政编码</td>
+										<td><INPUT name="bioBuaPostcode" id="yzbm"
+											style="WIDTH: 100%" maxlength="32"></td>
+										<td align="right">传真机号</td>
+										<td><input name="bioConFax" id="czjh" style="WIDTH: 100%"
+											maxlength="32" value=""></td>
+										<td align="right">Email</td>
+										<td><INPUT name="bioConMail" id="email"
+											style="WIDTH: 100%" maxlength="64" value=""></td>
+									</tr>
+									<tr class="line1">
+										<td align="right"><span class="redtxt">*</span>注册省(市)</td>
+										<td><select id="dwszs" name="dwszs" style="WIDTH: 100%"
+											onchange="initCity()"> ${Regioncode }
+
+										</select></td>
+										<td align="right">市(区\县)</td>
+										<td id="sqx"><select id="dwszq" name="dwszq"
+											style="WIDTH: 100%" onchange="initVillage()">
+										</select></td>
+										<td align="right">街(镇\乡)</td>
+										<td id="jzx"><select id="dwszj" name="bioRgaRegioncode"
+											style="WIDTH: 100%">
+										</select></td>
+									</tr>
+									<tr class="line2">
+										<td align="right"><span class="redtxt">*</span>经营地址</td>
+										<td colspan="5"><INPUT name="bioBuaAddress" id="lxdz"
+											style="WIDTH: 100%" maxlength="64" value=""></td>
+									</tr>
+
+								</table>
 							</td>
 						</tr>
-			</table>
-		</form>
-	</body>
+					</table> <br>
+					<TABLE width="100%" border=0 cellPadding=0 cellSpacing=1
+						class="tablebody" align="center">
+						<TR align="center">
+							<TD class="line2"><input id="bc" type="button"
+								class="BUTTONs3" value="保 存"> &nbsp;&nbsp; <INPUT
+								name="fh" type="button"
+								onclick="window.location.href='<%=request.getContextPath()%>/service/zj/dwzp/dwdj_1_querybase.jsp';"
+								class="BUTTONs3" value="返 回"></TD>
+						</TR>
+					</TABLE>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
 </html>

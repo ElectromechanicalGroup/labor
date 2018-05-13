@@ -2,17 +2,52 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-	<head>
-		<title>dwdj_7_insertzpgzxx</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link href="<%=request.getContextPath()%>/styles/css/common.css"
-			rel="stylesheet" type="text/css">
-		<script src="<%=request.getContextPath()%>/js/commonjs.js"></script>
-		<script type="text/javascript"
-			src="<%=request.getContextPath()%>/js/jquery-1.11.1.min.js"></script>
-		<script type="text/javascript">
+<head>
+<title>dwdj_7_insertzpgzxx</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<%=request.getContextPath()%>/styles/css/common.css"
+	rel="stylesheet" type="text/css">
+<script src="<%=request.getContextPath()%>/js/commonjs.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
 	$(function(){
 	
+		$("#zpgz").load("../../../dwdj/getSpecialty");
+		$("#gwlb").load("../../../dwdj/getGwlb");
+		$("#hjxz").load("../../../dwdj/getRprType");
+		$("#whcd").load("../../../dwdj/getEduLevel");
+		$("#zpgz").load("../../../dwdj/getSpecialty");
+		$("#ygxs").load("../../../dwdj/getEmployType");
+		$("#hyzk").load("../../../dwdj/getMarriage");
+		$("#jkzk").load("../../../dwdj/getHealthState");
+		$("#rylb").load("../../../dwdj/getPersonnelType");
+		$("#jsjdj").load("../../../dwdj/getComputerGrade");
+		$("#jsjslcd").load("../../../dwdj/getProficiency");
+		$("#yzslcd").load("../../../dwdj/getProficiency");
+		$("#jyyz").load("../../../dwdj/getLanguage")
+		$("#dwszs").load("../../../dwdj/getProvince")
+		$("#dwszs").change(function(){
+			$("#dwszq").load("../../../dwdj/getCity",{code:"dwszs",selectedId:$("#dwszs").val(),region:"city"})
+			$("#dwszq").change()
+		})
+		$("#dwszq").change(function(){
+			$("#dwszj").load("../../../dwdj/getVillage",{code:"dwszq",selectedId:$("#dwszq").val(),region:"village"})
+		})
+		
+		$("#zpdq").click(function(){
+			$("#div_zpdq").fadeIn();
+		})
+		$("#btn_close").click(function() {
+			/* alert($("#dwszj").find("option:selected").html());
+			alert($("#dwszj").val()) */
+			$("#zpdq").append("<option value="+$("#dwszj").val()+">"+$("#dwszj").find("option:selected").html()+"</option>")
+			$("#div_zpdq").fadeOut();
+		})
+		
+		
+		
+		
 		$.get("dwdj_1.do",{code:"whcd"},function(data){
 			$("#whcd").html(data);
 		});
@@ -173,7 +208,7 @@
 
 </script>
 
-		<script>
+<script>
 
 
 
@@ -260,362 +295,269 @@
 		}
 	}
 </script>
-	</head>
-	<body>
-		<form method="post" name="form1" action="dwdjInfo.do">
-			<input type="hidden" name="dwdj" value="dwdj3" />
-			<input type="hidden" name="dwbh" id="dwbh"
-				value=<%=request.getSession().getAttribute("dwbh")%>>
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td>
-						<table width="98%" border="0" align="center" cellpadding="0"
-							cellspacing="0">
-							<tr>
-								<td height="20" valign="bottom">
-									<img
-										src="<%=request.getContextPath()%>/styles/images/right/now.gif"
-										width="11" height="12">
-									当前位置：职业介绍 &gt; 单位登记 &gt; 新增招聘工种信息
-								</td>
-							</tr>
-							<tr>
-								<td valign="bottom"
-									background="<%=request.getContextPath()%>/styles/images/right/dsline.gif"
-									height="8">
-									<img
-										src="<%=request.getContextPath()%>/styles/images/index/spacer.gif">
-								</td>
-							</tr>
-						</table>
-					</td>
+</head>
+<body>
+	<div id="div_zpdq"
+		style="display: none; position: absolute; background-color: gray; left: 158px; top: 175px; width: 454px; height: 150px;border=1">
+		<div style="float: right;">
+			<input type="button" id="btn_close" value="确认" />
+		</div>
+		<div style="clear: both;" id="div1">
+			<table id="table">
+				<tr >
+					<td align="right">注册省(市)</td>
+					<td><select id="dwszs" name="dwszs" style="WIDTH: 100%"> </select></td>
 				</tr>
 				<tr>
-					<td align="center" valign="top">
-						<table width="98%" border="0" cellpadding="0" cellspacing="0"
-							class="title">
-							<tr>
-								<td width="30">
-									<table border="0" cellspacing="0" cellpadding="0">
-										<tr>
-											<td>
-												<img src="<%=request.getContextPath()%>/styles/css/bb_d.gif">
-											</td>
-										</tr>
-									</table>
-								</td>
-								<td valign="bottom">
-									招聘信息[公司名称法人码]
-								</td>
-							</tr>
-						</table>
-						<table width="98%" border="0" cellpadding="0" cellspacing="1">
-							<tr class="line2">
-								<td align="right" width="13%">
-									<span class="redtxt">*</span>经办人
-								</td>
-								<td align="right" width="20%">
-									<INPUT name="dwlxr" id="dwlxr" style="WIDTH: 100%"
-										maxlength="32">
-								</td>
-								<td align="right" width="13%">
-									身份证
-								</td>
-								<td align="right" width="20%">
-									<INPUT name="lxrsfzhm" id="lxrsfzhm" style="WIDTH: 100%"
-										maxlength="32">
-								</td>
-								<td align="right" width="13%">
-									手机
-								</td>
-								<td align="right" width="20%">
-									<input name="lxrsj" id="lxrsj" style="WIDTH: 100%"
-										maxlength="11">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="6" valign="bottom"
-									background="<%=request.getContextPath()%>/styles/images/right/dsline.gif"
-									height="8">
-									<img
-										src="<%=request.getContextPath()%>/styles/images/index/spacer.gif">
-								</td>
-							</tr>
-							<tr class="line2">
-								<td align="right">
-									<span class="redtxt">*</span>招聘工种
-								</td>
-								<td id="zpgztd">
-									<select name="zpgz" id="zpgz" style="WIDTH: 100%"
-										onclick=setZymc();>
-										<!--弹出ModalDialog-->
-									</select>
-								</td>
-								<td align="right">
-									岗位名称
-								</td>
-								<!-- 登记默认岗位类别为日常招聘岗位 -->
-								<td align="left">
-									<INPUT name="zpgzbm" style="WIDTH: 100%" maxlength="16">
-								</td>
-								<td align="right">
-									岗位类别
-								</td>
-								<td>
-									<select id="gwlb" name="gwlb" style="WIDTH: 100%">
-										${Zjdgwlb}
+					<td align="right">市(区\县)</td>
+					<td id="sqx"><select id="dwszq" name="dwszq" style="WIDTH: 100%"></select></td>
+					
+				</tr>
+				<tr>
+					<td align="right">街(镇\乡)</td>
+					<td id="jzx"><select id="dwszj" name="bioRgaRegioncode" style="WIDTH: 100%"></select></td>
+				</tr>
+			</table>
 
-									</select>
-								</td>
-							</tr>
-							<tr class="line1">
-								<td align="right">
-									<span class="redtxt">*</span>招聘人数
-								</td>
-								<td colspan="3">
-									男
-									<INPUT name="nars" id="nars" size="1">
-									女
-									<INPUT name="nvrs" id="nvrs" size="1">
-									不限
-									<INPUT name="xbbx" id="xbbx" size="1">
-								</td>
-								<td align="right">
-									户籍性质
-								</td>
-								<td>
-									<select id="hjxz" name="hjxz" style="WIDTH: 100%">
-										${Rprtype}
+		</div>
 
-									</select>
-								</td>
-							</tr>
-							<tr class="line2">
-								<td align="right" width="140">
-									开始时间
-								</td>
-								<td>
-									<textarea name="fbkssj" style="WIDTH: 100%" class='mask'
-										htcurl="url(<%=request.getContextPath()%>/common/htc/format.htc)"
-										rows="1" cols="10" mask='date' maxlength="8"></textarea>
-								</td>
+	</div>
 
-								<td align="right">
-									截至时间
-								</td>
-								<td>
-									<textarea name="fbjssj" style="WIDTH: 100%" class='mask'
-										htcurl="url(<%=request.getContextPath()%>/common/htc/format.htc)"
-										rows="1" cols="10" mask='date' maxlength="8"></textarea>
-								</td>
-								<td align="right">
-									年龄
-								</td>
-								<td>
-									<table width="100%" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td width="45%">
-												<INPUT name="zxnl" style="WIDTH: 100%" maxlength="2">
-											</td>
-											<td width="10%">
-												至
-											</td>
-											<td width="45%">
-												<INPUT name="zdnl" style="WIDTH: 100%" maxlength="2">
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-							<tr class="line1">
-								<td align="right" width="140">
-									文化程度
-								</td>
-								<td>
-									<select id="whcd" name="whcd" style="WIDTH: 100%">
-										${Educationallevel}
-
-
-									</select>
-								</td>
-
-								<td align="right">
-									<span class="redtxt">*</span>用工形式
-								</td>
-								<td>
-									<select id="ygxs" name="ygxs" style="WIDTH: 100%">
-										${Employtype}
-
-									</select>
-								</td>
-
-								<td align="right">
-									月薪
-								</td>
-								<td>
-									<table width="100%" border="0" cellpadding="0" cellspacing="0">
-										<tr>
-											<td width="45%">
-												<INPUT name="zdyx" style="WIDTH: 100%" maxlength="5"
-													onblur="checkJe(this);">
-											</td>
-											<td width="10%">
-												至
-											</td>
-											<td width="45%">
-												<INPUT name="zgyx" style="WIDTH: 100%" maxlength="5"
-													onblur="checkJe(this);">
-											</td>
-										</tr>
-									</table>
-								</td>
-
-							</tr>
-							<tr class="line2">
-								<td align="right">
-									婚姻状况
-								</td>
-								<td>
-									<select id="hyzk" name="hyzk" style="WIDTH: 100%">
-										${Marriage}
-
-									</select>
-								</td>
-								<td align="right">
-									健康状况
-								</td>
-								<td>
-									<select id="jkzk" name="jkzk" style="WIDTH: 100%">
-										${Healthstate}
-
-									</select>
-								</td>
-								<td align="right">
-									招用应届生
-								</td>
-								<td>
-									<select name="sfyjgxbys" style="WIDTH: 100%">
-										<option value=""></option>
-										<option value="1">
-											是
-										</option>
-										<option value="0">
-											否
-										</option>
-									</select>
-								</td>
-							</tr>
-							<tr class="line2">
-								<td align="right">
-									人员类别
-								</td>
-								<td>
-									<select id="rylb" name="rylb" style="WIDTH: 100%">
-										${Personneltype}
-
-									</select>
-								</td>
-								<td align="right">
-									招聘地区
-								</td>
-								<td>
-									<select id="zpdq" name="zpdq" style="WIDTH: 100%">
-										${Regioncode}
-
-									</select>
-								</td>
-								<td align="right"></td>
-								<td></td>
-
-							</tr>
-
-							<tr class="line1">
-								<td align="right">
-									计算机等级
-								</td>
-								<td>
-									<select id="jsjdj" name="jsjdj" style="WIDTH: 100%">
-										${Computergrade}
-
-									</select>
-								</td>
-								<td align="right">
-									熟练程度
-								</td>
-								<td>
-									<select id="jsjslcd" name="jsjslcd" style="WIDTH: 100%">
-										${Proficiency}
-
-									</select>
-								</td>
-							</tr>
-							<tr class="line2">
-								<td align="right">
-									具有外语
-								</td>
-								<td>
-									<select id="jyyz" name="jyyz" style="WIDTH: 100%">
-										${Language}
-
-									</select>
-								</td>
-								<td align="right">
-									熟练程度
-								</td>
-								<td>
-									<select id="yzslcd" name="yzslcd" style="WIDTH: 100%">
-										${Proficiency}
-
-									</select>
-								</td>
-
-							</tr>
-							<tr class="line1">
-								<td align="right">
-									工作地点
-								</td>
-								<td colspan="5">
-									<INPUT name="gzdd" style="WIDTH: 100%">
-								</td>
-
-							</tr>
-							<tr class="line2">
-								<td align="right">
-									岗位描述
-								</td>
-								<td>
-									<textarea name="gwms" style="width: 152"></textarea>
-								</td>
-								<td align="right" width="140">
-									其他说明
-								</td>
-								<td colspan="3">
-									<textarea name="fldy" style="width: 100%"></textarea>
-								</td>
-							</tr>
-
-						</table>
+	<form method="post" name="form1" action="../../../dwdj/addBio2">
+		<input type="hidden" name="dwdj" value="dwdj3" /> <input
+			type="hidden" name="dwbh" id="dwbh"
+			value=<%=request.getSession().getAttribute("dwbh")%>>
+		<%-- value=${sessionScope.bio.bioId} --%>
+		>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+					<table width="98%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
 						<tr>
-							<td>
-								<TABLE width="100%" border=0 cellPadding=0 cellSpacing=1
-									class="tablebody" align="center">
-									<tr height="15px">
-										<td>
-											b
-										</td>
-									</tr>
-									<TR align="center">
-										<TD class="line2">
-											<input name="bc" id="bc" type="button" class="BUTTONs3"
-												value="保 存">
-											&nbsp;&nbsp;
-											<INPUT name="fh" type="submit" class="BUTTONs3" value="返 回">
-										</TD>
-									</TR>
-								</TABLE>
+							<td height="20" valign="bottom"><img
+								src="<%=request.getContextPath()%>/styles/images/right/now.gif"
+								width="11" height="12"> 当前位置：职业介绍 &gt; 单位登记 &gt; 新增招聘工种信息
 							</td>
 						</tr>
-			</table>
-		</form>
-	</body>
+						<tr>
+							<td valign="bottom"
+								background="<%=request.getContextPath()%>/styles/images/right/dsline.gif"
+								height="8"><img
+								src="<%=request.getContextPath()%>/styles/images/index/spacer.gif">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top">
+					<table width="98%" border="0" cellpadding="0" cellspacing="0"
+						class="title">
+						<tr>
+							<td width="30">
+								<table border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td><img
+											src="<%=request.getContextPath()%>/styles/css/bb_d.gif">
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td valign="bottom">招聘信息[公司名称法人码]</td>
+						</tr>
+					</table>
+					<table width="98%" border="0" cellpadding="0" cellspacing="1">
+						<tr class="line2">
+							<td align="right" width="13%"><span class="redtxt">*</span>经办人
+							</td>
+							<td align="right" width="20%"><INPUT name="dwlxr" id="dwlxr"
+								style="WIDTH: 100%" maxlength="32"></td>
+							<td align="right" width="13%">身份证</td>
+							<td align="right" width="20%"><INPUT name="lxrsfzhm"
+								id="lxrsfzhm" style="WIDTH: 100%" maxlength="32"></td>
+							<td align="right" width="13%">手机</td>
+							<td align="right" width="20%"><input name="lxrsj" id="lxrsj"
+								style="WIDTH: 100%" maxlength="11"></td>
+						</tr>
+						<tr>
+							<td colspan="6" valign="bottom"
+								background="<%=request.getContextPath()%>/styles/images/right/dsline.gif"
+								height="8"><img
+								src="<%=request.getContextPath()%>/styles/images/index/spacer.gif">
+							</td>
+						</tr>
+						<tr class="line2">
+							<td align="right"><span class="redtxt">*</span>招聘工种</td>
+							<td id="zpgztd"><select name="zpgz" id="zpgz"
+								style="WIDTH: 100%" onclick=setZymc();>
+									<!--弹出ModalDialog-->
+							</select></td>
+							<td align="right">岗位名称</td>
+							<!-- 登记默认岗位类别为日常招聘岗位 -->
+							<td align="left"><INPUT name="zpgzbm" style="WIDTH: 100%"
+								maxlength="16"></td>
+							<td align="right">岗位类别</td>
+							<td><select id="gwlb" name="gwlb" style="WIDTH: 100%">
+									${Zjdgwlb}
+
+							</select></td>
+						</tr>
+						<tr class="line1">
+							<td align="right"><span class="redtxt">*</span>招聘人数</td>
+							<td colspan="3">男 <INPUT name="zprsn" id="nars" size="1">
+								女 <INPUT name="zprsnv" id="nvrs" size="1"> 不限 <INPUT
+								name="xbbx" id="xbbx" size="1">
+							</td>
+							<td align="right">户籍性质</td>
+							<td><select id="hjxz" name="hjxz" style="WIDTH: 100%">
+									${Rprtype}
+
+							</select></td>
+						</tr>
+						<tr class="line2">
+							<td align="right" width="140">开始时间</td>
+							<td><textarea name="kssj" style="WIDTH: 100%" class='mask'
+									htcurl="url(<%=request.getContextPath()%>/common/htc/format.htc)"
+									rows="1" cols="10" mask='date' maxlength="8"></textarea></td>
+
+							<td align="right">截至时间</td>
+							<td><textarea name="jssj" style="WIDTH: 100%" class='mask'
+									htcurl="url(<%=request.getContextPath()%>/common/htc/format.htc)"
+									rows="1" cols="10" mask='date' maxlength="8"></textarea></td>
+							<td align="right">年龄</td>
+							<td>
+								<table width="100%" border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="45%"><INPUT name="zxnl" style="WIDTH: 100%"
+											maxlength="2"></td>
+										<td width="10%">至</td>
+										<td width="45%"><INPUT name="zdnl" style="WIDTH: 100%"
+											maxlength="2"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr class="line1">
+							<td align="right" width="140">文化程度</td>
+							<td><select id="whcd" name="whcd" style="WIDTH: 100%">
+									${Educationallevel}
+
+
+							</select></td>
+
+							<td align="right"><span class="redtxt">*</span>用工形式</td>
+							<td><select id="ygxs" name="ygxs" style="WIDTH: 100%">
+									${Employtype}
+
+							</select></td>
+
+							<td align="right">月薪</td>
+							<td>
+								<table width="100%" border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="45%"><INPUT name="zzyx" style="WIDTH: 100%"
+											maxlength="5" onblur="checkJe(this);"></td>
+										<td width="10%">至</td>
+										<td width="45%"><INPUT name="zgyx" style="WIDTH: 100%"
+											maxlength="5" onblur="checkJe(this);"></td>
+									</tr>
+								</table>
+							</td>
+
+						</tr>
+						<tr class="line2">
+							<td align="right">婚姻状况</td>
+							<td><select id="hyzk" name="hyzk" style="WIDTH: 100%">
+									${Marriage}
+
+							</select></td>
+							<td align="right">健康状况</td>
+							<td><select id="jkzk" name="jkzk" style="WIDTH: 100%">
+									${Healthstate}
+
+							</select></td>
+							<td align="right">招用应届生</td>
+							<td><select name="sfbys" style="WIDTH: 100%">
+									<option value=""></option>
+									<option value="1">是</option>
+									<option value="0">否</option>
+							</select></td>
+						</tr>
+						<tr class="line2">
+							<td align="right">人员类别</td>
+							<td><select id="rylb" name="rylb" style="WIDTH: 100%">
+									${Personneltype}
+
+							</select></td>
+							<td align="right">招聘地区</td>
+							<td><select id="zpdq" name="zpdq" style="WIDTH: 100%">
+									${Regioncode}
+
+							</select></td>
+							<td align="right"></td>
+							<td></td>
+
+						</tr>
+
+						<tr class="line1">
+							<td align="right">计算机等级</td>
+							<td><select id="jsjdj" name="jsjdj" style="WIDTH: 100%">
+									${Computergrade}
+
+							</select></td>
+							<td align="right">熟练程度</td>
+							<td><select id="jsjslcd" name="jsjslcd" style="WIDTH: 100%">
+									${Proficiency}
+
+							</select></td>
+						</tr>
+						<tr class="line2">
+							<td align="right">具有外语</td>
+							<td><select id="jyyz" name="jyyz" style="WIDTH: 100%">
+									${Language}
+
+
+							</select></td>
+							<td align="right">熟练程度</td>
+							<td><select id="yzslcd" name="slcd" style="WIDTH: 100%">
+									<%-- ${Proficiency} --%>
+
+
+							</select></td>
+
+						</tr>
+						<tr class="line1">
+							<td align="right">工作地点</td>
+							<td colspan="5"><INPUT name="gzdd" style="WIDTH: 100%">
+							</td>
+
+						</tr>
+						<tr class="line2">
+							<td align="right">岗位描述</td>
+							<td><textarea name="gwms" style="width: 152"></textarea></td>
+							<td align="right" width="140">其他说明</td>
+							<td colspan="3"><textarea name="fldy" style="width: 100%"></textarea>
+							</td>
+						</tr>
+
+					</table>
+			<tr>
+				<td>
+					<TABLE width="100%" border=0 cellPadding=0 cellSpacing=1
+						class="tablebody" align="center">
+						<tr height="15px">
+							<td></td>
+						</tr>
+						<TR align="center">
+							<TD class="line2"><input name="bc" id="bc" type="button"
+								class="BUTTONs3" value="保 存"> &nbsp;&nbsp; <INPUT
+								name="fh" type="submit" class="BUTTONs3" value="返 回"></TD>
+						</TR>
+					</TABLE>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
 </html>

@@ -46,51 +46,6 @@
 		})
 		
 		
-		
-		
-		$.get("dwdj_1.do",{code:"whcd"},function(data){
-			$("#whcd").html(data);
-		});
-		$.get("dwdj_1.do",{code:"ygxs"},function(data){
-			$("#ygxs").html(data);
-		});
-		$.get("dwdj_1.do",{code:"hyzk"},function(data){
-			$("#hyzk").html(data);
-		});
-		$.get("dwdj_1.do",{code:"jkzk"},function(data){
-			$("#jkzk").html(data);
-		});
-		$.get("dwdj_1.do",{code:"rylb"},function(data){
-			$("#rylb").html(data);
-		});
-		$.get("dwdj_1.do",{code:"zpdq"},function(data){
-			$("#zpdq").html(data);
-		});
-		$.get("dwdj_1.do",{code:"jsjdj"},function(data){
-			$("#jsjdj").html(data);
-		});
-		$.get("dwdj_1.do",{code:"jsjslcd"},function(data){
-			$("#jsjslcd").html(data);
-		});
-		$.get("dwdj_1.do",{code:"jyyz"},function(data){
-			$("#jyyz").html(data);
-		});
-		$.get("dwdj_1.do",{code:"yzslcd"},function(data){
-			$("#yzslcd").html(data);
-		});
-		$.get("dwdj_1.do",{code:"gwlb"},function(data){
-			$("#gwlb").html(data);
-		});
-		$.get("dwdj_1.do",{code:"hjxz"},function(data){
-			$("#hjxz").html(data);
-		});
-		
-		$.getJSON("dwdjInfo.do",{code:"dwbh",dwbh:$("#dwbh").val()},function(data){
-
-			$("#dwlxr").val(data.dwlxr);
-			$("#lxrsfzhm").val(data.lxrsfzhm);
-			$("#lxrsj").val(data.lxrsj);
-		});
 	
 	$("#bc").click(function(){
 		
@@ -123,18 +78,22 @@
 		return;
 		
 		}
+		/* alert(111)
 		if(regtoo.test(form1.dwlxr.value)){
 			alert("请正确填写经办人!");
 			return;
 		}
+		
 		if(form1.lxrsfzhm.value!=""&&!regtoo.test(form1.lxrsfzhm.value)){
 		    alert("身份证格式输入不正确，请重新输入！");
 		    return;
 		}
+		alert(1111)
 		if(form1.lxrsj.value!=""&&!regtoo.test(form1.lxrsj.value)){
 		    alert("手机格式输入不正确，请重新输入！");
 		    return;
 		}
+		alert(22)
 		if(form1.fbkssj.value!=""&&!regtoo.test(form1.fbkssj.value)){
 		    alert("开始时间格式输入不正确，请重新输入！");
 		    return;
@@ -185,6 +144,8 @@
 		
 		}
 		
+		alert(222) */
+		alert("保存成功")
 		form1.submit();
 		
 		

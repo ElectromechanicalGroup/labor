@@ -3,9 +3,16 @@ package com.oracle.labor.dao;
 import com.oracle.labor.po.ZjDwzpdjb;
 import com.oracle.labor.po.ZjDwzpdjbExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ZjDwzpdjbMapper {
+	
+	Map<String, Object> selectByBioNo(String bioNo);
+	
+	ZjDwzpdjb selectById(String id);
+	
     long countByExample(ZjDwzpdjbExample example);
 
     int deleteByExample(ZjDwzpdjbExample example);

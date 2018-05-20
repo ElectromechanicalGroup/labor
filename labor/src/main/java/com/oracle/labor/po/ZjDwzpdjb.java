@@ -11,9 +11,9 @@ public class ZjDwzpdjb {
 
     private String lxrsj;
 
-    private String sfdj;
+    private String sfdj="否";
 
-    private Integer djyxq;
+    private Integer djyxq=12;
 
     private String djsj;
 

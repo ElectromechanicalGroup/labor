@@ -277,7 +277,7 @@ $(function(){
 
 	<form name="form1" action="../../../dwdj/addBio1" method="post">
 		<input type="hidden" name="dwdj" value="dwdj2" /> <input
-			type="hidden" name="dwbh" id="dwbh" />
+			type="hidden" name="bioId" id="dwbh" />
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td>

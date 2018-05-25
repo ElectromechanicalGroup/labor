@@ -29,4 +29,5 @@ public interface BioMapper {
     int updateByPrimaryKeySelective(Bio record);
 
     int updateByPrimaryKey(Bio record);
+    
 }

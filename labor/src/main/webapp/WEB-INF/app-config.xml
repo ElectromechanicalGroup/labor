@@ -5,7 +5,7 @@
 		<dba-driver>com.mysql.jdbc.Driver</dba-driver>
 		<dba-url>jdbc:mysql://localhost:3306/labor</dba-url>
 		<dba-username>root</dba-username>
-		<dba-password>zan123.</dba-password>
+		<dba-password>tiger</dba-password>
 		<dba-initnum>1</dba-initnum>
 		<dba-maxnum>1</dba-maxnum>
 		<dba-maxidle>1</dba-maxidle>

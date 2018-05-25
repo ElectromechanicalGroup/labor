@@ -50,8 +50,7 @@ public class BioService {
 	public void addDwzpdjb(ZjDwzpdjb zjdwzpdjb, ZjDwzpgzb zjdwzpgzb, HttpSession session) {
 
 		Bio bio=(Bio) session.getAttribute("bio");
-		System.out.println("=======================================================");
-		System.out.println(bio);
+		
 		zjdwzpdjb.setDwbh(bio.getBioId());
 		zjdwzpdjb.setZpbh(GenerateID.getGenerateId());
 		zjdwzpgzb.setZpbh(zjdwzpdjb.getZpbh());

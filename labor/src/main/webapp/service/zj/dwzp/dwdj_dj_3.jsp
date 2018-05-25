@@ -17,7 +17,7 @@ function either(item,location){
 function dwdj(){
 	form1.dwbc.disabled="true";
 	
-	form1.action="<%=request.getContextPath()%>/service/zj/dwzp/dwdj_dj.do?flag=DjJd";
+	<%-- form1.action="<%=request.getContextPath()%>/service/zj/dwzp/dwdj_dj.do?flag=DjJd"; --%>
 	form1.submit();
 	}
 function gzdj(){
@@ -26,7 +26,7 @@ function gzdj(){
 </script>
 </head>
 <body>
-<form method="post"  name="form1" action="">
+<form method="post"  name="form1" action="setDjDj">
 <table width="98%"  border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
       <td height="20" valign="bottom"><img src="<%=request.getContextPath()%>/styles/images/right/now.gif" width="11" height="12">
@@ -56,13 +56,14 @@ function gzdj(){
       <TD width="12%" align="center" class="line4">登记日期</TD>
     </TR>
 <logic:present name="uff" scope="request">
+		<input type="hidden" name="zpbh" value="${zpbh}">
       <input type="hidden" name="dwzt" value="<bean:write name='uff' property='dwzt'/>">
     <TR class="line2"> 
       <TD width="10%" align="center" class="line4"><input type="checkbox" name="dwdlbh" value="<bean:write name='uff' property='dwdlbh'/>" onclick="either(this,form1.cb)"><bean:write name="uff" property="dwzt"/></TD>
-      <TD width="24%" align="center" class="line4"><bean:write name="uff" property="bio_name"/>${DwInfo.bio_name}</TD>
-      <TD width="24%" align="center" class="line4"><bean:write name="uff" property="bio_bua_address"/>${DwInfo.bio_bua_address}</TD>
-      <TD width="17%" align="center" class="line4"><bean:write name="uff" property="bio_con_fax"/>${DwInfo.lxrsj}</TD>
-      <TD width="12%" align="center" class="line4"><bean:write name="uff" property="djsj"/>${DwInfo.djsj}</TD>
+      <TD width="24%" align="center" class="line4"><bean:write name="uff" property="bio_name"/>${bio_name}</TD>
+      <TD width="24%" align="center" class="line4"><bean:write name="uff" property="bio_bua_address"/>${bio_bua_address}</TD>
+      <TD width="17%" align="center" class="line4"><bean:write name="uff" property="bio_con_fax"/>${LXRSJ}</TD>
+      <TD width="12%" align="center" class="line4"><bean:write name="uff" property="djsj"/>${DJSJ}</TD>
     </TR>
 
 </logic:present>
@@ -90,7 +91,7 @@ function gzdj(){
 	<tr><td align="center">请输入操作原因：</td></tr>
 		<tr>
 			<td align="center" valign="top">
-				<textarea name="djreason" cols="55" rows="8"></textarea>
+				<textarea name="djyy" cols="55" rows="8"></textarea>
 			</td>
 		</tr>
 </table>

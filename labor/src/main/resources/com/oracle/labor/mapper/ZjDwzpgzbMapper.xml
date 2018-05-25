@@ -663,4 +663,10 @@
       GDSJ = #{gdsj,jdbcType=VARCHAR}
     where ZPGZBH = #{zpgzbh,jdbcType=VARCHAR}
   </update>
+  
+  <update id="updateDj" parameterType="com.oracle.labor.po.ZjDwzpgzb">
+  	update zj_dwzpgzb
+  	set GDSJ = #{gdsj,jdbcType=VARCHAR}
+    where ZPGZBH = #{zpgzbh,jdbcType=VARCHAR}
+  </update>
 </mapper>

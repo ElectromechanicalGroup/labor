@@ -1,9 +1,5 @@
 package com.oracle.labor.po;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class ZjDwzpgzb {
     private String zpgzbh;
 

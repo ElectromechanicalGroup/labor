@@ -13,7 +13,7 @@
 		<result column="GDSJ" jdbcType="VARCHAR" property="gdsj" />
 	</resultMap>
 
-	
+
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria" separator="or">
@@ -28,7 +28,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -60,7 +61,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -96,14 +98,16 @@
 		</if>
 	</select>
 	<select id="selectByBioNo" parameterType="java.lang.String"
-		resultType="map" >
+		resultType="map">
 		SELECT *,CASE SFDJ
 		when '否' THEN '正常'
-		when '是' THEN '冻结'
+		when '是' THEN
+		'冻结'
 		end state
 		from zj_dwzpdjb z
 		LEFT JOIN bio b
-		on b.bio_id=z.dwbh and bio_no=#{bioNo}
+		on b.bio_id=z.dwbh and
+		bio_no=#{bioNo}
 	</select>
 	<select id="selectById" parameterType="java.lang.String"
 		resultMap="BaseResultMap">
@@ -120,7 +124,8 @@
 		where ZPBH = #{zpbh,jdbcType=VARCHAR}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from zj_dwzpdjb
+		delete from
+		zj_dwzpdjb
 		where ZPBH = #{zpbh,jdbcType=VARCHAR}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.oracle.labor.po.ZjDwzpdjbExample">
@@ -130,12 +135,15 @@
 		</if>
 	</delete>
 	<insert id="insert" parameterType="com.oracle.labor.po.ZjDwzpdjb">
-		insert into zj_dwzpdjb (ZPBH, DWBH, DWLXR,
+		insert into zj_dwzpdjb (ZPBH,
+		DWBH, DWLXR,
 		LXRSFZHM, LXRSJ, SFDJ,
 		DJYXQ, DJSJ, GDSJ)
-		values (#{zpbh,jdbcType=VARCHAR}, #{dwbh,jdbcType=VARCHAR},
+		values
+		(#{zpbh,jdbcType=VARCHAR}, #{dwbh,jdbcType=VARCHAR},
 		#{dwlxr,jdbcType=VARCHAR},
-		#{lxrsfzhm,jdbcType=VARCHAR}, #{lxrsj,jdbcType=VARCHAR}, #{sfdj,jdbcType=VARCHAR},
+		#{lxrsfzhm,jdbcType=VARCHAR},
+		#{lxrsj,jdbcType=VARCHAR}, #{sfdj,jdbcType=VARCHAR},
 		#{djyxq,jdbcType=INTEGER}, #{djsj,jdbcType=VARCHAR},
 		#{gdsj,jdbcType=VARCHAR})
 	</insert>
@@ -207,6 +215,12 @@
 			<include refid="Example_Where_Clause" />
 		</if>
 	</select>
+	<update id="updateDj" parameterType="com.oracle.labor.po.ZjDwzpdjb">
+		update zj_dwzpdjb set
+		GDSJ =
+		#{gdsj,jdbcType=VARCHAR}
+		where ZPBH = #{zpbh,jdbcType=VARCHAR}
+	</update>
 	<update id="updateByExampleSelective" parameterType="map">
 		update zj_dwzpdjb
 		<set>
@@ -245,13 +259,20 @@
 	<update id="updateByExample" parameterType="map">
 		update zj_dwzpdjb
 		set ZPBH = #{record.zpbh,jdbcType=VARCHAR},
-		DWBH = #{record.dwbh,jdbcType=VARCHAR},
-		DWLXR = #{record.dwlxr,jdbcType=VARCHAR},
-		LXRSFZHM = #{record.lxrsfzhm,jdbcType=VARCHAR},
-		LXRSJ = #{record.lxrsj,jdbcType=VARCHAR},
-		SFDJ = #{record.sfdj,jdbcType=VARCHAR},
-		DJYXQ = #{record.djyxq,jdbcType=INTEGER},
-		DJSJ = #{record.djsj,jdbcType=VARCHAR},
+		DWBH =
+		#{record.dwbh,jdbcType=VARCHAR},
+		DWLXR =
+		#{record.dwlxr,jdbcType=VARCHAR},
+		LXRSFZHM =
+		#{record.lxrsfzhm,jdbcType=VARCHAR},
+		LXRSJ =
+		#{record.lxrsj,jdbcType=VARCHAR},
+		SFDJ =
+		#{record.sfdj,jdbcType=VARCHAR},
+		DJYXQ =
+		#{record.djyxq,jdbcType=INTEGER},
+		DJSJ =
+		#{record.djsj,jdbcType=VARCHAR},
 		GDSJ = #{record.gdsj,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -292,11 +313,14 @@
 		set DWBH = #{dwbh,jdbcType=VARCHAR},
 		DWLXR = #{dwlxr,jdbcType=VARCHAR},
 		LXRSFZHM = #{lxrsfzhm,jdbcType=VARCHAR},
-		LXRSJ = #{lxrsj,jdbcType=VARCHAR},
+		LXRSJ =
+		#{lxrsj,jdbcType=VARCHAR},
 		SFDJ = #{sfdj,jdbcType=VARCHAR},
-		DJYXQ = #{djyxq,jdbcType=INTEGER},
+		DJYXQ =
+		#{djyxq,jdbcType=INTEGER},
 		DJSJ = #{djsj,jdbcType=VARCHAR},
-		GDSJ = #{gdsj,jdbcType=VARCHAR}
+		GDSJ =
+		#{gdsj,jdbcType=VARCHAR}
 		where ZPBH = #{zpbh,jdbcType=VARCHAR}
 	</update>
 </mapper>

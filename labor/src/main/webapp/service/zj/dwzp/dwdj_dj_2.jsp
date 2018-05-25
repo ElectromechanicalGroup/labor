@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -11,7 +12,6 @@ function doSubmit(){
 
 	form1.button1.disabled="true";
 	form1.button2.disabled="true";
-	form1.action="<%=request.getContextPath()%>/service/zj/dwzp/dwdj_dj.do?flag=select";
 	form1.submit();
 
 }
@@ -22,7 +22,7 @@ function toBack(){
 </script>
 </head>
 <body>
-<form name="form1" action="" method="post">
+<form name="form1" action="getBioByBioNo" method="post">
 <table width="98%"  border="0" align="center" cellpadding="0" cellspacing="0">
 	<tr>
 	  <td height="20" valign="bottom"><img src="<%=request.getContextPath()%>/styles/images/right/now.gif" width="11" height="12">
@@ -32,6 +32,7 @@ function toBack(){
 	  <td valign="bottom" background="<%=request.getContextPath()%>/styles/images/right/dsline.gif" height="8"><img src="<%=request.getContextPath()%>/styles/images/index/spacer.gif"></td>
 	</tr>
 </table>
+<input type="hidden" id="bio_no" name="bioNo" value="${bio_no }">
 <table width="98%" align="center" border="0" cellpadding="0" cellspacing="0"   class="title">
   <tr>
     <td width="38">
@@ -56,13 +57,18 @@ function toBack(){
         <td class="line4">登记时间</td>
        
       </tr>
-      <tr align="center"  >
-		<td class="line4">${DwInfo.s}</td>
-        <td class="line4">${DwInfo.bio_name}</td>
-        <td class="line4">${DwInfo.bio_bua_address}</td>
-        <td class="line4">${DwInfo.lxrsj}</td>
-        <td class="line4">${DwInfo.djsj}</td>
-</tr>     
+      
+      
+      
+      	<tr align="center"  >
+			<td class="line4">${state}</td>
+        	<td class="line4">${bio_name}</td>
+        	<td class="line4">${bio_bua_address}</td>
+        	<td class="line4">${LXRSJ}</td>
+        	<td class="line4">${DJSJ}</td>
+		</tr> 
+      
+          
     </table> </td>
 </tr>
 </table>

@@ -13,15 +13,15 @@
 		}
 		form1.button1.disabled="true";
 		form1.button2.disabled="true";
-		form1.action="<%=request.getContextPath()%>/service/zj/dwzp/dwdj_dj.do?flag=selectDwById";
+		<%-- form1.action="<%=request.getContextPath()%>/service/zj/dwzp/dwdj_dj.do?flag=selectDwById"; --%>
 			form1.submit();
 	}
-	function huitian2(){
+	<%-- function huitian2(){
 		
 	var p=document.getElementById("bio_no").value;
 
 	var xhr=new XMLHttpRequest();
-		xhr.open("get","<%=request.getContextPath()%>/service/zj/dwzp/dwdj_dj.do?bio_no="+p,true);		
+		xhr.open("get","<%=request.getContextPath()%>/service/zj/dwzp/getByBioId?bioNo="+p,true);		
 	xhr.onreadystatechange=function(){
 		if(xhr.readyState==4){
 			var nn=xhr.responseText.split(",");
@@ -33,12 +33,12 @@
 			}
 			}
 			xhr.send(null);
-}
+} --%>
 	
 </script>
 </head>
 <body>
-<form method="post"  name="form1" action="">
+<form method="post"  name="form1" action="getByBioNo">
 <table width="98%"  border="0" align="center" cellpadding="0" cellspacing="0">
 	<tr>
 	  <td height="20" valign="bottom"><img src="<%=request.getContextPath()%>/styles/images/right/now.gif" width="11" height="12">
@@ -68,7 +68,7 @@ border=1 cellPadding=0 cellSpacing=0 bordercolor="#FFFFFF" class=tablebody>
 	            <tr> 
 	               <td width="90" align="right">单位法人码</td>
 					<td width="23"  align="right"></td>
-	                <td width="160"><input id="bio_no" name="bio_no" type="text" maxlength="64" style='width:100%' onblur="huitian2()"></td>
+	                <td width="160"><input id="bio_no" name="bioNo" type="text" maxlength="64" style='width:100%' onblur="huitian2()"></td>
 					<td width="24"  align="right"></td>
 	             </tr>
              </table>

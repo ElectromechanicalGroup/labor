@@ -34,4 +34,7 @@ public interface ZjDwzpdjbMapper {
     int updateByPrimaryKeySelective(ZjDwzpdjb record);
 
     int updateByPrimaryKey(ZjDwzpdjb record);
+    
+    void updateDj(ZjDwzpdjb zjDwzpdjb);
+    
 }

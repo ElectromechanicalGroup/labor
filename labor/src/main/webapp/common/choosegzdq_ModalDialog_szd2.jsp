@@ -8,35 +8,26 @@
 <script src="<%=request.getContextPath() %>/js/jquery-1.11.1.js"></script>
 <script>
 	$(function(){
-		
-		$("#gzdq_dwszs").load("../qzdj/hkszd", {
-			value : "00"
-		})
-		$("#gzdq_dwszs").change(function() {
-			$("#gzdq_dwszq").empty();
+		$.get("../service/zj/grqz/qzdj_1.do",{code:"gzdq_dwszs"},function(data){$("#gzdq_dwszs").html(data);})
+		$("#gzdq_dwszq").val("");
+		$("#gzdq_dwszj").val("");
+		$("#gzdq_dwszs").change(function(){			
+			$.get("../service/zj/grqz/qzdj_1.do",{code:"gzdq_dwszq",selectedId:$("#gzdq_dwszs").val(),region:"city"},function(data){$("#gzdq_dwszq").html(data);})		
 			$("#gzdq_dwszj").empty();
+			$("#dqdm").val($("#gzdq_dwszs option:selected").val());
+			$("#dqmc").val($("#gzdq_dwszs option:selected").text());
+		})
+		$("#gzdq_dwszq").change(function(){
+			$.get("../service/zj/grqz/qzdj_1.do",{code:"gzdq_dwszj",selectedId:$("#gzdq_dwszq").val(),region:"village"},function(data){$("#gzdq_dwszj").html(data);})								
+			if($("#gzdq_dwszq").val()==""){
+				$("#dqdm").val($("#gzdq_dwszs option:selected").val());
+				$("#dqmc").val($("#gzdq_dwszs option:selected").text());
+			}else{
+				$("#dqdm").val($("#gzdq_dwszq option:selected").val());
+				$("#dqmc").val($("#gzdq_dwszq option:selected").text());
+			}
 			
-			$.get("../qzdj/city", {
-				code : "gzdq_dwszq",
-				selectedId : $("#gzdq_dwszs").val(),
-				region : "city"
-			}, function(data) {
-				$("#gzdq_dwszq").html(data);
-			})
-
 		})
-		$("#gzdq_dwszq").change(function() {
-
-			$.get("../qzdj/village", {
-				code : "gzdq_dwszj",
-				selectedId : $("#gzdq_dwszq").val(),
-				region : "village"
-			}, function(data) {
-				$("#gzdq_dwszj").html(data);
-				$("#gzdq_dwszj").change()
-			})
-		})
-		
 		$("#gzdq_dwszj").change(function(){
 			if($("#gzdq_dwszj").val()==""){
 				$("#dqdm").val($("#gzdq_dwszq option:selected").val());
@@ -47,6 +38,18 @@
 			}	
 				
 		})
+		
+		var gzdq=window.dialogArguments;
+		
+		if(gzdq!=null){
+			$.get("../service/zj/grqz/qzdj_1.do",{code:"dwszs_2",dq:gzdq},function(data){$("#gzdq_dwszs").html(data);})
+			$.get("../service/zj/grqz/qzdj_1.do",{code:"dwszq_2",dq:gzdq},function(data){$("#gzdq_dwszq").html(data);})
+			$.get("../service/zj/grqz/qzdj_1.do",{code:"dwszj_2",dq:gzdq},function(data){$("#gzdq_dwszj").html(data);})
+			
+			$("#dqdm").val(gzdq);
+			$.get("../service/zj/grqz/qzdj_1.do",{code:"dq_name",dq_id:gzdq},function(data){$("#dqmc").val(data)})
+			
+		}
 		
 		
 		
